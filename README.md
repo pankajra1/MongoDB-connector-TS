@@ -1,10 +1,10 @@
 # MongoDB-connector-TS
 using typescript to create a mongoDB connector
 
+
 ```
 MongoDB-connector-TS
 ├─ .env
-├─ dist
 ├─ eslint.config.mjs
 ├─ package-lock.json
 ├─ package.json
@@ -15,8 +15,6 @@ MongoDB-connector-TS
 │  │  └─ database.ts
 │  ├─ controllers
 │  │  └─ user.controller.ts
-│  ├─ core
-│  │  └─ di-container.ts
 │  ├─ index.ts
 │  ├─ repositories
 │  │  └─ user.repository.ts

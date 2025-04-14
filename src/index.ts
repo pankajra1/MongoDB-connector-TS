@@ -1,13 +1,25 @@
+// src/index.ts
 import { app } from './app';
-import { DIContainer } from './core/di-container';
+import { Database } from './config/database';
+import { UserRepository } from './repositories/user.repository';
+import { UserService } from './services/user.service';
+import { UserController } from './controllers/user.controller';
 
-async function start() {
-  await DIContainer.init();
+const PORT = process.env.PORT || 3000;
 
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`✅ Server running on http://localhost:${PORT}`);
-  });
-}
+(async () => {
+  try {
+    const db = await Database.connect();
+    const userRepo = new UserRepository(db);
+    const userService = new UserService(userRepo);
 
-start().catch(console.error);
+    UserController.init(userService); // ✅ Injecting the service properly
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running at http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('❌ Failed to start app:', error);
+    process.exit(1);
+  }
+})();

@@ -1,10 +1,14 @@
+// src/controllers/user.controller.ts
 import { Request, Response } from 'express';
-import { DIContainer } from '../core/di-container';
 import { UserService } from '../services/user.service';
 
-const userService = DIContainer.get<UserService>('userService');
+let userService: UserService;
 
 export class UserController {
+  static init(service: UserService) {
+    userService = service;
+  }
+
   static async create(req: Request, res: Response) {
     try {
       const { name, email } = req.body;
